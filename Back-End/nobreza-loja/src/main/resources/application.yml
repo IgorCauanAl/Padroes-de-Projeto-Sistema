@@ -7,7 +7,7 @@ error:
 
 spring:
   datasource:
-      url: jdbc:sqlserver://192.168.2.100:1433;databaseName=NobrezaDB;encrypt=false;trustServerCertificate=false
+      url: ${DB_URL}
       username: sa
       password: 1234567
       driver-class-name: com.microsoft.sqlserver.jdbc.SQLServerDriver
@@ -57,3 +57,4 @@ spring:
         model: llama3.2:3b
         options:
           temperature: 0.7
+

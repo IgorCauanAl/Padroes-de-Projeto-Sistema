@@ -1,72 +1,72 @@
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Config/AIConfig.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Config/CustomFailureHandler.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Config/CustomSucessHandler.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Config/DataInicializer.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Config/SecurityConfig.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Config/WebConfig.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/ADM/ADMController.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/ADM/AccountManagerController.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/ADM/UseController.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/AiController.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/CarrinhoController.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/CatalogController.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/CheckoutController.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/ClothesController.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/LoginController.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/PagePrincipalController.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/PasswordRecoveryController.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/ProductController.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/RegisterController.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/SearchController.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/CarrinhoItensDTO.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/CheckoutFormDto.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/CodeDTO.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/NewPasswordDTO.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/ProductDTO.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/ProductSuggestionDTO.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/RecoveryEmailDTO.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/RegisterUserDTO.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/ReturnRegisterDTO.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/SearchSuggestionDTO.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/CarrinhoItens.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/Category.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/Cor.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/Endereco.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/ImageProduct.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/ItemPedido.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/MetodoPagamento.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/Pedido.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/Produto.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/Role.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/TokenSenha.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/Usuario.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Enum/ProductSection.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Enum/StatusPedido.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Exception/AccountNotFound.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Exception/EmailAlreadyExistException.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Exception/EmailNotFoundException.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Exception/TokenExpiratedException.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Exception/TokenInvalideException.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/CarrinhoItensRepository.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/CategoryRepository.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/ColorRepository.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/EnderecoRepository.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/MetodoPagamentoRepository.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/PedidoRepository.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/ProductRepository.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/RoleRepository.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/TokenSenhaRepository.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/UserRepository.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/ADMUserService.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/AiService.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/CarrinhoService.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/CustomUserDetailsService.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/EmailService.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/FileStorageService.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/PasswordRecoveryService.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/PedidoService.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/ProductService.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/RegisterService.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/SearchService.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/UserService.java
-/home/igor/Área de trabalho/Projetos/Projeto-Nobreza-Site/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/SiteNobrezaLojaDeTernosMasculinaApplication.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Config/AIConfig.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Config/CustomFailureHandler.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Config/CustomSucessHandler.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Config/DataInicializer.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Config/SecurityConfig.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Config/WebConfig.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/ADM/ADMController.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/ADM/AccountManagerController.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/ADM/UseController.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/AiController.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/CarrinhoController.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/CatalogController.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/CheckoutController.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/ClothesController.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/LoginController.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/PagePrincipalController.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/PasswordRecoveryController.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/ProductController.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/RegisterController.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Controller/Login/SearchController.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/CarrinhoItensDTO.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/CheckoutFormDto.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/CodeDTO.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/NewPasswordDTO.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/ProductDTO.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/ProductSuggestionDTO.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/RecoveryEmailDTO.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/RegisterUserDTO.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/ReturnRegisterDTO.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/DTO/SearchSuggestionDTO.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/CarrinhoItens.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/Category.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/Cor.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/Endereco.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/ImageProduct.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/ItemPedido.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/MetodoPagamento.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/Pedido.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/Produto.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/Role.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/TokenSenha.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Entity/Usuario.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Enum/ProductSection.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Enum/StatusPedido.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Exception/AccountNotFound.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Exception/EmailAlreadyExistException.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Exception/EmailNotFoundException.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Exception/TokenExpiratedException.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Exception/TokenInvalideException.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/CarrinhoItensRepository.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/CategoryRepository.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/ColorRepository.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/EnderecoRepository.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/MetodoPagamentoRepository.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/PedidoRepository.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/ProductRepository.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/RoleRepository.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/TokenSenhaRepository.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Repository/UserRepository.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/ADMUserService.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/AiService.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/CarrinhoService.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/CustomUserDetailsService.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/EmailService.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/FileStorageService.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/PasswordRecoveryService.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/PedidoService.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/ProductService.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/RegisterService.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/SearchService.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/Service/UserService.java
+/home/igor/Área de trabalho/Padrões de Projeto/Padroes-de-Projeto-Sistema/Back-End/nobreza-loja/src/main/java/commerce/nobreza/loja/masculina/nobreza_loja/SiteNobrezaLojaDeTernosMasculinaApplication.java
