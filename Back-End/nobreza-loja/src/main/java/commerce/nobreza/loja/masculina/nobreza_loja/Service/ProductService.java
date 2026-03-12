@@ -48,34 +48,26 @@ public class ProductService implements CatalogoServiceInterface {
 
         Set<Cor> coresSet = new HashSet<>();
         if (cores != null && !cores.isEmpty()) {
-            List<String> hexCodes = Arrays.asList(cores.split(","));
-            for (String hex : hexCodes) {
-                coresSet.add(findOrCreateCor(hex.toUpperCase()));
-            }
+            Arrays.stream(cores.split(","))
+                    .forEach(hex -> coresSet.add(findOrCreateCor(hex.toUpperCase())));
         }
 
-        Produto produto = new Produto();
-        produto.setName(nome);
-        produto.setPrice(preco);
-        produto.setReferencia(ref);
-        produto.setAmount(quantidade);
-        produto.setDescription(descricao);
-        produto.setComposition(composicao);
-        produto.setDiscountPix(pixDesconto != null ? pixDesconto : 0.0);
-        produto.setCreatedIn(LocalDateTime.now());
-        produto.setCategory(category);
-        produto.setColors(coresSet);
+        // implementaççao do Builder
+        Produto produto = Produto.builder()
+                .name(nome)
+                .price(preco)
+                .referencia(ref)
+                .amount(quantidade)
+                .description(descricao)
+                .composition(composicao)
+                .discountPix(pixDesconto)
+                .category(category)
+                .section(ProductSection.valueOf(secao))
+                .colors(coresSet)
+                .build();
 
-        try {
-            produto.setSection(ProductSection.valueOf(secao.toUpperCase()));
-        } catch (IllegalArgumentException | NullPointerException e) {
-            produto.setSection(ProductSection.CATEGORY);
-        }
-
+        //salvando a imagem
         ImageProduct productImage = new ImageProduct(savedImageUrl, produto);
-        if (produto.getImages() == null) {
-            produto.setImages(new ArrayList<>());
-        }
         produto.getImages().add(productImage);
 
         productRepository.save(produto);

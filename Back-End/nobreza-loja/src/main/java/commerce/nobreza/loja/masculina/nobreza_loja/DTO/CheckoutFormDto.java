@@ -1,5 +1,6 @@
 package commerce.nobreza.loja.masculina.nobreza_loja.DTO;
 
+import commerce.nobreza.loja.masculina.nobreza_loja.Enum.TipoPagamento;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -30,7 +31,12 @@ public class CheckoutFormDto {
     private String estado;
 
 
-    private String paymentMethod;
+    private TipoPagamento paymentMethod;
 
+    // Dados do Cartão de Crédito
+    private String numeroCartao;
+    private String nomeCartao;
+    private String validadeCartao;
+    private String cvvCartao;
 
 }

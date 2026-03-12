@@ -2,7 +2,10 @@ package commerce.nobreza.loja.masculina.nobreza_loja.Entity;
 
 import commerce.nobreza.loja.masculina.nobreza_loja.Enum.ProductSection;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
@@ -15,6 +18,9 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "tb_produto")
 public class Produto {
 
@@ -50,12 +56,15 @@ public class Produto {
     @Column(name = "discount_pix")
     private Double discountPix;
 
+    @Builder.Default
     @Column(name = "created_in")
-    private LocalDateTime createdIn;
+    private LocalDateTime createdIn = LocalDateTime.now();
 
+    @Builder.Default
     @Column(name = "access_count")
     private Long accessCount = 0L;
 
+    @Builder.Default
     @ManyToMany
     @JoinTable(
             name= "product_colors",
@@ -65,6 +74,7 @@ public class Produto {
     private Set<Cor> colors = new HashSet<>();
 
 
+    @Builder.Default
     @OneToMany(
             mappedBy = "product",
             cascade = CascadeType.ALL,
@@ -72,6 +82,4 @@ public class Produto {
             fetch = FetchType.EAGER
     )
     private List<ImageProduct> images = new ArrayList<>();
-
-
 }

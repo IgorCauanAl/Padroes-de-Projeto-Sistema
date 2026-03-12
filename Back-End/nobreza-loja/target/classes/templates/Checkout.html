@@ -180,14 +180,19 @@
 
                 <div class="payment-methods">
                     <label class="payment-method-tab">
-                        <input type="radio" th:field="*{paymentMethod}" value="pix" required/>
+                        <input type="radio" th:field="*{paymentMethod}" value="PIX" required/>
                         <i class="fas fa-qrcode"></i>
                         <span>Pix</span>
                     </label>
                     <label class="payment-method-tab">
-                        <input type="radio" th:field="*{paymentMethod}" value="boleto" required/>
+                        <input type="radio" th:field="*{paymentMethod}" value="BOLETO" required/>
                         <i class="fas fa-barcode"></i>
                         <span>Boleto</span>
+                    </label>
+                    <label class="payment-method-tab">
+                        <input type="radio" th:field="*{paymentMethod}" value="CARTAO_CREDITO" required/>
+                        <i class="fas fa-credit-card"></i>
+                        <span>Cartão</span>
                     </label>
                 </div>
 
@@ -223,6 +228,27 @@
                                 A confirmação pode levar até 3 dias úteis.
                             </p>
                         </div>
+                    </div>
+
+                    <div id="cartao-content" class="payment-panel">
+                         <div class="step-form">
+                             <div class="form-group full-width">
+                                 <label for="numeroCartao">Número do Cartão</label>
+                                 <input type="text" id="numeroCartao" th:field="*{numeroCartao}" placeholder="0000 0000 0000 0000" />
+                             </div>
+                             <div class="form-group">
+                                 <label for="nomeCartao">Nome no Cartão</label>
+                                 <input type="text" id="nomeCartao" th:field="*{nomeCartao}" placeholder="Nome como impresso" />
+                             </div>
+                             <div class="form-group">
+                                 <label for="validadeCartao">Validade</label>
+                                 <input type="text" id="validadeCartao" th:field="*{validadeCartao}" placeholder="MM/AA" />
+                             </div>
+                             <div class="form-group">
+                                 <label for="cvvCartao">CVV</label>
+                                 <input type="text" id="cvvCartao" th:field="*{cvvCartao}" placeholder="123" />
+                             </div>
+                         </div>
                     </div>
 
 
@@ -308,8 +334,44 @@
     </div>
 </div>
 
-</body>
 <script th:src="@{/js/Checkout/Checkout.js}"></script>
 <script th:src="@{/js/page_principal/page-principal.js}"></script>
 <script th:src="@{/js/carrinho.js}"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const paymentRadios = document.querySelectorAll('input[name="paymentMethod"]');
+        const paymentPanels = document.querySelectorAll('.payment-panel');
+        const paymentMethodTabs = document.querySelectorAll('.payment-method-tab');
+
+        function updatePaymentDisplay() {
+            const selectedPayment = document.querySelector('input[name="paymentMethod"]:checked');
+
+            paymentPanels.forEach(panel => panel.style.display = 'none');
+            paymentMethodTabs.forEach(tab => tab.classList.remove('active'));
+
+            if (selectedPayment) {
+                const selectedTab = selectedPayment.closest('.payment-method-tab');
+                if(selectedTab) {
+                    selectedTab.classList.add('active');
+                }
+
+                if (selectedPayment.value === 'PIX') {
+                    document.getElementById('pix-content').style.display = 'block';
+                } else if (selectedPayment.value === 'BOLETO') {
+                    document.getElementById('boleto-content').style.display = 'block';
+                } else if (selectedPayment.value === 'CARTAO_CREDITO') {
+                    document.getElementById('cartao-content').style.display = 'block';
+                }
+            }
+        }
+
+        paymentRadios.forEach(radio => {
+            radio.addEventListener('change', updatePaymentDisplay);
+        });
+
+        // Initialize display on page load
+        updatePaymentDisplay();
+    });
+</script>
+</body>
 </html>

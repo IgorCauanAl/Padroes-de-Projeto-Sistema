@@ -4,6 +4,7 @@ import commerce.nobreza.loja.masculina.nobreza_loja.Entity.*;
 import commerce.nobreza.loja.masculina.nobreza_loja.Enum.StatusPedido;
 import commerce.nobreza.loja.masculina.nobreza_loja.Repository.*;
 import commerce.nobreza.loja.masculina.nobreza_loja.DTO.CheckoutFormDto;
+import commerce.nobreza.loja.masculina.nobreza_loja.Service.strategy.PagamentoContext;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,7 @@ public class PedidoService {
     private final UserRepository usuarioRepository;
     private final EnderecoRepository enderecoRepository;
     private final ProductRepository productRepository;
+    private final PagamentoContext pagamentoContext;
 
     @Transactional
     public Pedido criarPedidoDoCarrinho(CheckoutFormDto form, String userEmail) {
@@ -109,6 +111,8 @@ public class PedidoService {
         pedido.setItens(itensDePedido);
         pedido.setValorTotal(valorTotal);
 
+        // Processa o pagamento usando o padrão Strategy
+        pagamentoContext.realizarPagamento(form.getPaymentMethod(), valorTotal);
 
         pedido.setStatus(StatusPedido.PAGO);
 

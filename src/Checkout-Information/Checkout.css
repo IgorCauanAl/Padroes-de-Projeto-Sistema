@@ -106,8 +106,8 @@ body {
 }
 
 .form-group input,
-.form-group textarea
-.form-group select{
+.form-group textarea,
+.form-group select {
     width: 100%;
     padding: 0.8rem 1.2rem;
     border-radius: 8px;
@@ -120,6 +120,10 @@ body {
     transition: all 0.3s ease;
 }
 
+.form-group select option {
+    background-color: #000;
+    color: white;
+}
 
 .form-group input::placeholder,
 .form-group textarea::placeholder {
@@ -268,10 +272,17 @@ body {
   display: flex;
   gap: 1rem;
   margin-bottom: 2rem;
+  flex-wrap: wrap; /* Permite quebrar linha em telas menores */
+}
+
+/* Novo seletor para garantir que o input radio fique escondido mas acessível se necessário */
+.payment-method-tab input[type="radio"] {
+  display: none;
 }
 
 .payment-method-tab {
-  flex-grow: 1;
+  flex: 1;
+  min-width: 140px; /* Largura mínima para não quebrar layout */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -282,6 +293,7 @@ body {
   cursor: pointer;
   transition: all 0.3s ease;
   background-color: rgba(0, 0, 0, 0.2);
+  text-align: center;
 }
 
 .payment-method-tab:hover {
@@ -289,12 +301,7 @@ body {
   border-color: rgba(255, 255, 255, 0.5);
 }
 
-/* Esconde o radio button real */
-.payment-method-tab input[type="radio"] {
-  display: none;
-}
-
-/* Estilo para a aba ativa */
+/* Estilo para a aba ativa - deve funcionar para pix, boleto e cartão */
 .payment-method-tab.active {
   background-color: white;
   color: black;
@@ -302,6 +309,12 @@ body {
   font-weight: 600;
 }
 
+/* Estilos para os ícones dentro das abas */
+.payment-method-tab i {
+  font-size: 1.2rem;
+}
+
+/* Painéis de conteúdo de pagamento */
 .payment-panel {
   display: none; /* Escondido por padrão */
   animation: fadeIn 0.5s;
@@ -309,6 +322,18 @@ body {
 
 .payment-panel.active {
   display: block; /* Visível quando ativo */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Estilos específicos para o cartão de crédito */
+#credit-card-content {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 1.5rem;
+  border-radius: 8px;
 }
 
 /* Estilos para PIX e Boleto */
@@ -337,11 +362,14 @@ body {
 
 .pix-code-group {
   display: flex;
+  max-width: 400px;
+  margin: 0 auto;
 }
 .pix-code-group input {
   text-align: center;
   border-radius: 8px 0 0 8px;
   font-size: 0.8rem;
+  flex-grow: 1;
 }
 .pix-code-group button {
   border-radius: 0 8px 8px 0;
@@ -357,8 +385,8 @@ body {
 .customer-form {
   display: none; /* Esconde os formulários por padrão */
   /* Herda os estilos de grid do .step-form */
-  grid-template-columns: 1fr 1fr;
-  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
 }
 
 .customer-form.active {

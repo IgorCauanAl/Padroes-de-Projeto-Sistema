@@ -22,12 +22,6 @@
                     <div id="number-purchases"><p>0</p></div>
                 </div>
 
-                <div class="stats-circle">
-                    <a th:href="@{/produtos/estatisticas}">
-                        <img th:src="@{/img/icones/shop_principal/stats.svg}" alt="Mais Comprados" style="width: 25px; height: 25px;"/>
-                    </a>
-                </div>
-
                 <div th:if="${#authorization.expression('hasRole(''ADMIN'')')}" class="admin-circle" >
                     <a th:href ="@{/manageruser}"><img th:src="@{/img/icones/shop_principal/adm.png}" alt="Admin"/></a>
                 </div>
@@ -35,8 +29,6 @@
                 <div class="login-circle">
                     <a th:href="@{/user/manager}"><img th:src="@{/img/icones/shop_principal/profile.svg}" alt=""/></a>
                 </div>
-
-            </div>
                 <div id="mini-cart" class="hidden">
                     <button id="mini-cart-close" class="close-button">&times;</button>
                     <div id="mini-cart-items"></div>

@@ -1,198 +1,158 @@
 document.addEventListener("DOMContentLoaded", function () {
-
-    const stepIdentificacao = document.getElementById("identificacao");
-    const stepEndereco = document.getElementById("endereco");
-    const stepPagamento = document.getElementById("pagamento");
-
-    const btnParaEndereco = document.querySelector("#identificacao .btn-next-step");
-    const btnParaPagamento = document.querySelector("#endereco .btn-next-step");
-
-    const checkoutForm = document.querySelector('.checkout-form');
-
-    const pixModalOverlay = document.getElementById('pix-modal-overlay');
-    const pixLoadingState = document.getElementById('pix-loading-state');
-    const pixPaymentState = document.getElementById('pix-payment-state');
-    const pixModalClose = document.getElementById('pix-modal-close');
-    const pixQrCodeImage = document.getElementById('pix-qr-code-image');
-    const pixCopiaColaText = document.getElementById('pix-copia-cola-text');
-    const pixCopiaColaBtn = document.getElementById('pix-copia-cola-btn');
-
-    let pollInterval;
-
-    function validateContainer(container) {
-        const inputs = container.querySelectorAll("input[required], select[required], textarea[required]");
-        for (let input of inputs) {
-            if (!input.checkValidity()) {
-                input.reportValidity();
-                return false;
-            }
+  // --- ESTRATÉGIAS DE PAGAMENTO ---
+  const paymentStrategies = {
+    "credit-card": {
+      pay: (data) => {
+        console.log("Pagando com Cartão de Crédito:", data);
+        // Lógica para processar pagamento com cartão de crédito
+        alert("Pagamento com Cartão de Crédito realizado com sucesso!");
+      },
+      validate: () => {
+        const cardNumber = document.getElementById("card-number").value;
+        const cardName = document.getElementById("card-name").value;
+        const cardExpiry = document.getElementById("card-expiry").value;
+        const cardCvv = document.getElementById("card-cvv").value;
+        if (!cardNumber || !cardName || !cardExpiry || !cardCvv) {
+          alert("Por favor, preencha todos os dados do cartão.");
+          return false;
         }
         return true;
+      },
+      collectData: () => ({
+        cardNumber: document.getElementById("card-number").value,
+        cardName: document.getElementById("card-name").value,
+        cardExpiry: document.getElementById("card-expiry").value,
+        cardCvv: document.getElementById("card-cvv").value,
+        installments: document.getElementById("card-installments").value,
+      }),
+    },
+    pix: {
+      pay: (data) => {
+        console.log("Pagando com Pix:", data);
+        // Lógica para processar pagamento com Pix
+        alert("Pagamento com Pix realizado com sucesso! (simulação)");
+      },
+      validate: () => {
+        // Validação para Pix (se necessário)
+        return true;
+      },
+      collectData: () => ({
+        pixCode: document.querySelector("#pix-content .pix-code-group input").value,
+      }),
+    },
+    boleto: {
+      pay: (data) => {
+        console.log("Pagando com Boleto:", data);
+        // Lógica para gerar boleto
+        alert("Boleto gerado com sucesso! (simulação)");
+      },
+      validate: () => {
+        // Validação para Boleto (se necessário)
+        return true;
+      },
+      collectData: () => ({
+        message: "Boleto a ser gerado.",
+      }),
+    },
+  };
+
+  // --- CONTEXTO DE PAGAMENTO ---
+  class PaymentContext {
+    constructor(strategy) {
+      this.strategy = strategy;
     }
 
-    function goToStep(targetStep) {
-        document.querySelectorAll(".checkout-step").forEach((step) => {
-            step.classList.remove("active");
-        });
-        if (targetStep) {
-            targetStep.classList.add("active");
-            targetStep.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
+    setStrategy(strategy) {
+      this.strategy = strategy;
     }
 
-    if (btnParaEndereco) {
-        btnParaEndereco.addEventListener("click", () => {
-            const formPF = document.getElementById("form-pf");
-            const containerParaValidar = formPF.classList.contains("active")
-                ? formPF
-                : document.getElementById("form-pj");
-
-            if (validateContainer(containerParaValidar)) {
-                goToStep(stepEndereco);
-            }
-        });
+    executePayment() {
+      if (this.strategy.validate()) {
+        const data = this.strategy.collectData();
+        this.strategy.pay(data);
+        // Aqui você pode redirecionar para a página de sucesso, etc.
+      }
     }
+  }
 
-    if (btnParaPagamento) {
-        btnParaPagamento.addEventListener("click", () => {
-            const containerEndereco = document.querySelector("#endereco .step-form");
-            if (validateContainer(containerEndereco)) {
-                goToStep(stepPagamento);
-            }
-        });
-    }
+  // --- INICIALIZAÇÃO E EVENTOS ---
 
-    const customerTypeTabs = document.querySelectorAll(".customer-type-tabs .tab-btn");
-    const customerForms = document.querySelectorAll(".customer-form");
+  // Seleciona os formulários e seções
+  const formIdentificacao = document.getElementById("form-identificacao");
+  const formEndereco = document.getElementById("form-endereco");
+  const stepIdentificacao = document.getElementById("identificacao");
+  const stepEndereco = document.getElementById("endereco");
+  const stepPagamento = document.getElementById("pagamento");
+  const btnFinishPayment = document.getElementById("btn-finish-payment");
 
-    customerTypeTabs.forEach((tab) => {
-        tab.addEventListener("click", () => {
-            customerTypeTabs.forEach((item) => item.classList.remove("active"));
-            customerForms.forEach((form) => form.classList.remove("active"));
+  // Instancia o contexto de pagamento com a estratégia inicial (cartão de crédito)
+  const paymentContext = new PaymentContext(paymentStrategies["credit-card"]);
 
-            tab.classList.add("active");
-            document.getElementById(tab.getAttribute("data-form")).classList.add("active");
-        });
+  // Função para navegar entre as etapas
+  function goToStep(targetStep) {
+    document.querySelectorAll(".checkout-step").forEach((step) => {
+      step.classList.remove("active");
     });
+    if (targetStep) {
+      targetStep.classList.add("active");
+      targetStep.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  }
 
-    const paymentTabs = document.querySelectorAll(".payment-method-tab");
-    const paymentPanels = document.querySelectorAll(".payment-panel");
-
-    paymentTabs.forEach((tab) => {
-        tab.addEventListener("click", () => {
-            paymentTabs.forEach((item) => item.classList.remove("active"));
-            tab.classList.add("active");
-
-            const targetId = tab.querySelector('input[type="radio"]').value;
-            paymentPanels.forEach((panel) => panel.classList.remove("active"));
-            document.getElementById(targetId + "-content").classList.add("active");
-        });
+  // Navegação entre etapas
+  if (formIdentificacao) {
+    formIdentificacao.addEventListener("submit", (event) => {
+      event.preventDefault();
+      goToStep(stepEndereco);
     });
+  }
 
-    checkoutForm.addEventListener('submit', handleCheckoutSubmit);
-
-    async function handleCheckoutSubmit(event) {
-        const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
-
-        if (paymentMethod !== 'pix') return;
-
-        event.preventDefault();
-        openPixModal();
-
-        try {
-            const formData = new FormData(checkoutForm);
-            const formDataObject = Object.fromEntries(formData.entries());
-
-            const response = await fetch(checkoutForm.action, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: JSON.stringify(formDataObject)
-            });
-
-            if (!response.ok) throw new Error('Falha ao gerar o pedido.');
-
-            const pixData = await response.json();
-            showPixPaymentData(pixData);
-
-        } catch (error) {
-            console.error(error);
-            alert('Erro ao processar. Tente novamente.');
-            closePixModal();
-        }
-    }
-
-    function openPixModal() {
-        pixModalOverlay.classList.remove('pix-modal-hidden');
-        pixLoadingState.classList.remove('pix-modal-hidden');
-        pixPaymentState.classList.add('pix-modal-hidden');
-    }
-
-    function closePixModal() {
-        pixModalOverlay.classList.add('pix-modal-hidden');
-        if (pollInterval) clearInterval(pollInterval);
-    }
-
-    function showPixPaymentData(data) {
-        pixLoadingState.classList.add('pix-modal-hidden');
-        pixPaymentState.classList.remove('pix-modal-hidden');
-
-        pixQrCodeImage.src = `data:image/png;base64,${data.qrCodeBase64}`;
-        pixCopiaColaText.value = data.copiaECola;
-
-        if (pollInterval) clearInterval(pollInterval);
-        pollInterval = setInterval(async () => {
-            try {
-                const statusResponse = await fetch(`/pedido/confirmado/${data.orderId}`);
-                const statusData = await statusResponse.json();
-                if (statusData.status === 'PAGO') {
-                    clearInterval(pollInterval);
-                    window.location.href = `/pedidos/sucesso/${data.orderId}`;
-                }
-            } catch (err) {
-                console.error("Erro verificando pagamento:", err);
-            }
-        }, 5000);
-    }
-
-    pixModalClose.addEventListener('click', closePixModal);
-
-    pixCopiaColaBtn.addEventListener('click', () => {
-        pixCopiaColaText.select();
-        document.execCommand('copy');
-        alert('Código Pix copiado!');
+  if (formEndereco) {
+    formEndereco.addEventListener("submit", (event) => {
+      event.preventDefault();
+      goToStep(stepPagamento);
     });
+  }
+
+  // Abas de tipo de cliente (PF/PJ)
+  const customerTypeTabs = document.querySelectorAll(".customer-type-tabs .tab-btn");
+  const customerForms = document.querySelectorAll(".customer-form");
+
+  customerTypeTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      customerTypeTabs.forEach((item) => item.classList.remove("active"));
+      customerForms.forEach((form) => form.classList.remove("active"));
+      tab.classList.add("active");
+      document.getElementById(tab.getAttribute("data-form")).classList.add("active");
+    });
+  });
+
+  // Abas de método de pagamento
+  const paymentTabs = document.querySelectorAll(".payment-method-tab");
+  const paymentPanels = document.querySelectorAll(".payment-panel");
+
+  paymentTabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      paymentTabs.forEach((item) => item.classList.remove("active"));
+      tab.classList.add("active");
+
+      const targetId = tab.querySelector('input[type="radio"]').value;
+      const strategy = paymentStrategies[targetId];
+
+      if (strategy) {
+        paymentContext.setStrategy(strategy); // Atualiza a estratégia no contexto
+        console.log("Estratégia de pagamento alterada para:", targetId);
+      }
+
+      paymentPanels.forEach((panel) => panel.classList.remove("active"));
+      document.getElementById(targetId + "-content").classList.add("active");
+    });
+  });
+
+  // Botão de Finalizar Compra
+  if (btnFinishPayment) {
+    btnFinishPayment.addEventListener("click", () => {
+      paymentContext.executePayment();
+    });
+  }
 });
-
-const selectEndereco = document.getElementById('endereco-selecionado');
-
-if (selectEndereco) {
-    selectEndereco.addEventListener('change', function() {
-
-        const selectedOption = this.options[this.selectedIndex];
-
-        if (this.value === "") {
-            limparCamposEndereco();
-        } else {
-            document.getElementById('cep').value = selectedOption.dataset.cep || "";
-            document.getElementById('rua').value = selectedOption.dataset.rua || "";
-            document.getElementById('numero').value = selectedOption.dataset.numero || "";
-            document.getElementById('complemento').value = selectedOption.dataset.complemento || "";
-            document.getElementById('bairro').value = selectedOption.dataset.bairro || "";
-            document.getElementById('cidade').value = selectedOption.dataset.cidade || "";
-            document.getElementById('estado').value = selectedOption.dataset.estado || "";
-        }
-    });
-}
-
-function limparCamposEndereco() {
-    document.getElementById('cep').value = "";
-    document.getElementById('rua').value = "";
-    document.getElementById('numero').value = "";
-    document.getElementById('complemento').value = "";
-    document.getElementById('bairro').value = "";
-    document.getElementById('cidade').value = "";
-    document.getElementById('estado').value = "";
-}
