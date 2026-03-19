@@ -78,7 +78,7 @@
             <div th:if="${#lists.isEmpty(pedidos)}" class="empty-state">
                 <i class="fas fa-receipt"></i>
                 <p>Nenhum pedido foi feito ainda.</p>
-                <a th:href="@{/catalogo}" class="btn">VER PRODUTOS</a>
+                <a th:href="@{/api/catalog/page(category='ternofit', groupTitle='Ternos', pageTitle='Slim Fit')}" class="btn">VER PRODUTOS</a>
             </div>
 
             <div th:unless="${#lists.isEmpty(pedidos)}" class="pedidos-lista">
