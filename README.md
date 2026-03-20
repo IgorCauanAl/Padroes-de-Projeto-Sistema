@@ -21,3 +21,26 @@ A pasta `src/` na raiz contém protótipos e versões legadas de páginas estát
 cd Back-End/nobreza-loja
 ./mvnw spring-boot:run
 ```
+
+## Execução com Docker (app + SQL Server)
+
+```bash
+cd Back-End/nobreza-loja
+cp .env.example .env
+docker compose up --build
+```
+
+- Aplicação: `http://localhost:8081`
+- SQL Server: `localhost:1433`
+
+Para parar:
+
+```bash
+docker compose down
+```
+
+Para parar removendo também o volume do banco:
+
+```bash
+docker compose down -v
+```
