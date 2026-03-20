@@ -22,3 +22,14 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# IDE / editor
+.vscode/
+.idea/
+
+# Backend build artifacts
+Back-End/nobreza-loja/target/
+Back-End/nobreza-loja/logs/
+
+# Runtime uploads
+Back-End/nobreza-loja/uploads/
