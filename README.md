@@ -1,46 +1,62 @@
-# Padroes-de-Projeto-Sistema
-Sistema Nobreza-Site, um simples e-commerce usando alguns padrões de projeto, trabalho do IFBA.
+# 🛍️ Nobreza E-Commerce
 
-## Fonte canônica do projeto
+Bem-vindo ao repositório do **Nobreza-Site**, um sistema de comércio eletrônico focado em moda masculina, desenvolvido como projeto acadêmico do IFBA. 
 
-- Aplicação oficial (backend + frontend servido pelo Spring): `Back-End/nobreza-loja`
-- Templates Thymeleaf oficiais: `Back-End/nobreza-loja/src/main/resources/templates`
-- CSS/JS/imagens oficiais: `Back-End/nobreza-loja/src/main/resources/static`
+Este software foi projetado para simular uma vitrine digital completa, oferecendo carrinho de compras, controle de usuários e gestão de pedidos por debaixo de uma arquitetura limpa em Spring Boot.
 
-## Importante sobre duplicidade de frontend
+## 🚀 Tecnologias Utilizadas
+A paleta de tecnologias e bibliotecas adotadas foca em performance, padronização e facilidade de deploy:
+- **Backend**: Java / Spring Boot (MVC)
+- **Frontend Servido**: Templates dinâmicos Thymeleaf + HTML/CSS/JS nativos
+- **Banco de Dados**: SQL Server (em container Docker)
+- **Boilerplate**: Lombok (para getters/setters e builders automatizados)
 
-A pasta `src/` na raiz contém protótipos e versões legadas de páginas estáticas.
+---
 
-- Não usar `src/` raiz como fonte principal para novas features.
-- Não editar `Back-End/nobreza-loja/target` (artefato de build).
-- Toda evolução funcional deve ocorrer em `Back-End/nobreza-loja/src/main`.
+## ⚙️ Como Executar o Projeto
 
-## Execução local
+O sistema está alocado integralmente dentro do diretório `/Back-End/nobreza-loja`. Todo desenvolvimento e execução de comandos deve se originar dessa pasta base.
 
+Você tem duas opções para iniciar os serviços na sua máquina local:
+
+### Opção 1: Via Docker (Recomendado)
+A forma mais rápida, pois automatiza e sobe simultaneamente a aplicação e o Banco de Dados.
 ```bash
+# 1. Entre no diretório da aplicação principal
 cd Back-End/nobreza-loja
+
+# 2. Copie o arquivo de variáveis de ambiente do molde
+cp .env.example .env
+
+# 3. Suba as instâncias via Docker Compose
+docker compose up --build
+```
+> O site Nobreza estará disponível em [http://localhost:8081](http://localhost:8081).
+> O Banco de Dados SQL Server alocará a porta `1433`.
+
+*Para interromper a execução:* `docker compose down`
+
+### Opção 2: Via Wrapper Maven (Apenas Aplicação Local)
+Se você já possui o banco rodando por fora e só deseja subir o serviço Java:
+```bash
+# 1. Entre na pasta raiz
+cd Back-End/nobreza-loja
+
+# 2. Execute a Spring Boot Application 
 ./mvnw spring-boot:run
 ```
 
-## Execução com Docker (app + SQL Server)
+---
 
-```bash
-cd Back-End/nobreza-loja
-cp .env.example .env
-docker compose up --build
-```
+## 🏛️ Arquitetura e Engenharia de Software
 
-- Aplicação: `http://localhost:8081`
-- SQL Server: `localhost:1433`
+Este aplicativo aplica fortíssimos conceitos de Clean Code, SOLID e Design Patterns para assegurar manutenibilidade. A estrutura principal MVC foi modelada junto a Padrões GoF rígidos da computação:
 
-Para parar:
+* **Criacionais**: *Builder*
+* **Estruturais**: *Facade* e *Proxy*
+* **Comportamentais**: *Strategy* e *Observer*
 
-```bash
-docker compose down
-```
+📚 **Consulte [DocumentacaoProjeto.md](./DocumentacaoProjeto.md)** para instruções profundas, exemplos em código e discussões sobre o design arquitetural usado neste software e quais problemas cada padrão de projeto está resolvendo simultaneamente nos bastidores dessa loja.
 
-Para parar removendo também o volume do banco:
-
-```bash
-docker compose down -v
-```
+---
+> ⚠️ **Aviso de Duplicidade Frontend:** A pasta `src/` que está listada na raiz extrema do repositório contém protótipos e versões não integradas de HTML estático. Toda evolução verdadeira e rotas dinâmicas do projeto ocorrem estritamente dentro de `Back-End/nobreza-loja/src/main`. Favor ignorar as pastas root legadas.

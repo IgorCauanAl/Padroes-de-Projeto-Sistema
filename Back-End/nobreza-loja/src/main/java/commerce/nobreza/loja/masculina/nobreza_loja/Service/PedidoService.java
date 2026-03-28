@@ -5,6 +5,7 @@ import commerce.nobreza.loja.masculina.nobreza_loja.Enum.StatusPedido;
 import commerce.nobreza.loja.masculina.nobreza_loja.Repository.*;
 import commerce.nobreza.loja.masculina.nobreza_loja.DTO.CheckoutFormDto;
 import commerce.nobreza.loja.masculina.nobreza_loja.Service.strategy.PagamentoContext;
+import commerce.nobreza.loja.masculina.nobreza_loja.Service.observer.PedidoObserver;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -26,6 +27,7 @@ public class PedidoService {
     private final EnderecoRepository enderecoRepository;
     private final ProductRepository productRepository;
     private final PagamentoContext pagamentoContext;
+    private final List<PedidoObserver> observers;
 
     @Transactional
     public Pedido criarPedidoDoCarrinho(CheckoutFormDto form, String userEmail) {
@@ -117,7 +119,9 @@ public class PedidoService {
         pedido.setStatus(StatusPedido.PAGO);
 
         Pedido pedidoSalvo = pedidoRepository.save(pedido);
-        carrinhoItensRepository.deleteAll(itensCarrinho);
+        
+        // Desacoplamento via Padrão Observer: notifica os inscritos para gerar efeitos colaterais (email, limpar carrinho)
+        observers.forEach(observer -> observer.update(pedidoSalvo));
 
         return pedidoSalvo;
     }
