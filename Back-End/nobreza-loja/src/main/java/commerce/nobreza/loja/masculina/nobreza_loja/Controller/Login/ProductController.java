@@ -1,4 +1,4 @@
-package commerce.nobreza.loja.masculina.nobreza_loja.Controller.Product;
+package commerce.nobreza.loja.masculina.nobreza_loja.Controller.Login;
 
 import commerce.nobreza.loja.masculina.nobreza_loja.Service.ProductService;
 import lombok.AllArgsConstructor;

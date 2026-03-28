@@ -1,4 +1,5 @@
 package commerce.nobreza.loja.masculina.nobreza_loja.Controller.Login;
+
 import commerce.nobreza.loja.masculina.nobreza_loja.Entity.Produto;
 import commerce.nobreza.loja.masculina.nobreza_loja.Service.ProductService;
 import lombok.AllArgsConstructor;
@@ -8,9 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
-import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/api/catalog")
@@ -28,11 +26,10 @@ public class CatalogController {
             @RequestParam(defaultValue = "newest") String sort,
             @RequestParam(name = "min", required = false) Double min,
             @RequestParam(name = "max", required = false) Double max,
-            Model model
-    ) {
+            @RequestParam(name = "search", required = false) String search,
+            Model model) {
 
-
-        Page<Produto> produtosPage = productService.findProdutos(category, page, sort, min, max);
+        Page<Produto> produtosPage = productService.findProdutos(category, page, sort, min, max, search);
 
         model.addAttribute("produtosPage", produtosPage);
         model.addAttribute("totalProdutosCount", produtosPage.getTotalElements());
@@ -43,6 +40,7 @@ public class CatalogController {
         model.addAttribute("sort", sort);
         model.addAttribute("min", min);
         model.addAttribute("max", max);
+        model.addAttribute("search", search);
 
         return "catalog";
     }

@@ -97,7 +97,9 @@
     <div id="sub-search-hidden">
         <div id="sub-search">
             <div id="container-search">
-                <form class="formulary-search" th:action="@{/search-back-end}" method="get">
+                <form class="formulary-search" th:action="@{/api/catalog/page}" method="get">
+                    <input type="hidden" name="groupTitle" value="Resultados" />
+                    <input type="hidden" name="pageTitle" value="Busca" />
                     <input type="text" name="search" class="search-box" placeholder="O que você está buscando?" required aria-label="Campo Pesquisa"/>
                     <div id="land">
                         <button type="submit" class="button-search">

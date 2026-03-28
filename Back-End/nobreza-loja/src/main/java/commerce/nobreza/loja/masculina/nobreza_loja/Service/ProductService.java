@@ -22,13 +22,11 @@ import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
 @AllArgsConstructor
 public class ProductService implements CatalogoServiceInterface {
-
 
     protected final ProductRepository productRepository;
     protected final CategoryRepository categoryRepository;
@@ -40,8 +38,7 @@ public class ProductService implements CatalogoServiceInterface {
     public void createProduct(
             String nome, BigDecimal preco, String tipo, String ref, Integer quantidade,
             String descricao, String composicao, MultipartFile foto, String cores,
-            Double pixDesconto, String secao
-    ) throws IOException {
+            Double pixDesconto, String secao) throws IOException {
 
         String savedImageUrl = saveImage(foto);
         Category category = findOrCreateCategory(tipo);
@@ -66,7 +63,7 @@ public class ProductService implements CatalogoServiceInterface {
                 .colors(coresSet)
                 .build();
 
-        //salvando a imagem
+        // salvando a imagem
         ImageProduct productImage = new ImageProduct(savedImageUrl, produto);
         produto.getImages().add(productImage);
 
@@ -84,7 +81,8 @@ public class ProductService implements CatalogoServiceInterface {
     }
 
     @Transactional(readOnly = true)
-    public Page<Produto> findProdutos(String categoryName, int page, String sortType, Double min, Double max) {
+    public Page<Produto> findProdutos(String categoryName, int page, String sortType, Double min, Double max,
+            String search) {
         Sort sort = buildSort(sortType);
         int pageIndex = (page < 1) ? 0 : page - 1;
         Pageable pageable = PageRequest.of(pageIndex, 8, sort);
@@ -94,18 +92,21 @@ public class ProductService implements CatalogoServiceInterface {
             categoryObject = categoryRepository.findByName(categoryName).orElse(null);
         }
 
-        return productRepository.findProdutosByFilters(categoryObject, min, max, pageable);
+        return productRepository.findProdutosByFilters(categoryObject, min, max, search, pageable);
     }
 
     private String saveImage(MultipartFile file) throws IOException {
-        if (file.isEmpty()) throw new IOException("O arquivo de imagem está vazio.");
+        if (file.isEmpty())
+            throw new IOException("O arquivo de imagem está vazio.");
 
         Path uploadPath = Paths.get(UPLOAD_DIR);
-        if (!Files.exists(uploadPath)) Files.createDirectories(uploadPath);
+        if (!Files.exists(uploadPath))
+            Files.createDirectories(uploadPath);
 
         String originalFilename = file.getOriginalFilename();
-        String extension = (originalFilename != null && originalFilename.contains(".")) ?
-                originalFilename.substring(originalFilename.lastIndexOf(".")) : "";
+        String extension = (originalFilename != null && originalFilename.contains("."))
+                ? originalFilename.substring(originalFilename.lastIndexOf("."))
+                : "";
 
         String uniqueFileName = UUID.randomUUID().toString() + extension;
         Path filePath = uploadPath.resolve(uniqueFileName);
@@ -143,9 +144,9 @@ public class ProductService implements CatalogoServiceInterface {
         };
     }
 
-    //contrato da interface proxy
+    // contrato da interface proxy
     @Override
     public Page<Produto> buscarProdutoPorFiltro(Category category, Double min, Double max, Pageable pageable) {
-        return productRepository.findProdutosByFilters(category, min, max, pageable);
+        return productRepository.findProdutosByFilters(category, min, max, null, pageable);
     }
 }
