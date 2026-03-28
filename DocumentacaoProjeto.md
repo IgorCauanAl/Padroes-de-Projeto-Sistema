@@ -1,104 +1,67 @@
-# Padrões de Projeto: Sistema Nobreza 👑
+# Documentação de Arquitetura e Padrões de Projeto: Sistema Nobreza 👑
 
-Este documento cataloga a justificativa arquitetural e os Padrões de Projeto (Design Patterns) implementados no Sistema de E-commerce "Nobreza-Site", criado para fins acadêmicos e desenvolvido em Spring Boot (Java).
-
----
-
-## 1. Observer Pattern (Padrão Observador)
-
-O padrão Observer define uma dependência um-para-muitos entre objetos, de forma que quando um objeto (o "Sujeito" ou "Subject") muda de estado, todos os seus dependentes ("Observadores" ou "Observers") são notificados e atualizados automaticamente.
-
-### 📌 O Problema Resolvido
-No processo natural de um e-commerce, o momento do "Checkout" (quando o cliente finaliza um Pedido) acarreta múltiplas consequências periféricas que não dizem respeito ao núcleo de dados primário do "Pedido", como por exemplo:
-1. Limpar permanentemente o carrinho de compras do cliente.
-2. Notificar o sistema de e-mail para enviar um recibo da compra.
-3. (Possivelmente no futuro) Enviar métricas para um BI, pontuar em um sistema de fidelidade, solicitar baixa no setor de frete.
-
-Sem o padrão Observer, a classe `PedidoService` acabava instanciando e chamando todos os serviços acima de forma procedural e sequencial logo após salvar o Pedido, inflando-a com dependências excessivas (ferindo o `Single Responsibility Principle` do SOLID) e dificultando sua manutenção futura se novos serviços periféricos de checkout fossem adicionados.
-
-### 📍 Localização no Código (Pacotes e Classes)
-- **Pacote Base:** `commerce.nobreza.loja.masculina.nobreza_loja.Service`
-- **Pacote dos Observers:** `commerce.nobreza.loja.masculina.nobreza_loja.Service.observer`
-
-**Classes Envolvidas:**
-1. **`PedidoObserver` (Interface Base):** Define o contrato de inscrição contendo o método `void update(Pedido pedido)`. Ocorre dentro do pacote `observer`.
-2. **`EmailConfirmacaoObserver` (Implementação 1):** Ouve um evento de pedido e constrói o envio de confirmação no e-mail real do usuário. Utiliza por debaixo dos panos o `EmailService`.
-3. **`LimpezaCarrinhoObserver` (Implementação 2):** Ao receber o aviso de pedido completo, consulta os dados do carrinho ligados àquele usuário e esvazia a fila via `CarrinhoItensRepository`.
-4. **`PedidoService` (O Subject):** Representa o núcleo da transação. Agrupa todos aqueles que se assinaram implementando `PedidoObserver` (via Injeção de Dependências Autowired do próprio Spring) numa `List<PedidoObserver>` e os notifica ao final do método `criarPedidoDoCarrinho`.
-
-### 🛠 Como foi aplicado (Exemplo de Implementação)
-O sistema valeu-se da capacidade de resolução de contexto de dependências nativa do Spring. 
-
-As implementações assinam a interface publicamente:
-```java
-@Component
-public class EmailConfirmacaoObserver implements PedidoObserver {
-    public void update(Pedido pedido) { ... }
-}
-```
-
-O serviço principal (Subject/Ouvido) recebe todos as classes que implementam validamente o contrato nativamente e só precisa repassar o evento:
-```java
-@Service
-public class PedidoService {
-    private final List<PedidoObserver> observers; // O Spring Boot carrega todas implementações de PedidoObserver.
-
-    public Pedido criarPedidoDoCarrinho(CheckoutFormDto form, String userEmail) {
-        // ... Logica central de validação e processamento ...
-        Pedido pedidoSalvo = pedidoRepository.save(pedido);
-
-        // Disparo procedural único: Desacoplamento via Observer
-        observers.forEach(observer -> observer.update(pedidoSalvo));
-        
-        return pedidoSalvo;
-    }
-}
-```
-
-### ✨ Benefícios
-- **Total Desacoplamento:** O `PedidoService` agora só precisa se preocupar em realizar as validações de pedido e processar o pagamento dele, como seu nome natural sugere e exige.
-- **Princípio Aberto-Fechado (OCP):** Um dos alicerces do "SOLID", permitindo que novas funcionalidades reativas a um Checkout sejam adicionadas no futuro ao sistema *sem modificar nem alterar* as linhas já sensíveis de codificação financeira que compõem o `PedidoService`. Basta construir uma nova classe implementando a Interface e decorando com a anotação padrão do ecossistema.
-- **Rápida Leitura e Refatoração:** Ao separar as lógicas complexas e periféricas de limpeza e template de e-mails em classes específicas, a manutenibilidade para depurar bugs é verticalmente otimizada.
+Este documento cataloga a justificativa arquitetural e os Padrões de Design implementados no Sistema de E-commerce Nobreza, desenvolvido em Spring Boot (Java) para fins acadêmicos.
 
 ---
 
-## 2. Facade Pattern (Padrão Fachada)
+## 🏛️ Padrões Arquiteturais
 
-O Padrão Facade fornece uma interface unificada e de alto nível para um conjunto de interfaces em um subsistema, que o torna mais fácil de usar, escondendo suas complexidades reais das camadas clientes.
+A macroestrutura do software foi desenhada para garantir manutenibilidade, testabilidade e separação de responsabilidades.
 
-### 📌 O Problema Resolvido
-No processamento de um cartão de crédito, existe uma alta densidade de etapas invisíveis, como validações antifraude e integração com APIs de operadoras bancárias.
-A estratégia de pagamento `CartaoPagamentoStrategy` original teria que conhecer os fluxos de todos esses serviços para concretizar a ação, inflando seu código com infraestrutura onde deveria existir apenas controle de lógica de negócio e regras de checkout (ferindo o `Single Responsibility Principle`).
+### 1. MVC (Model-View-Controller)
+O sistema adota os preceitos do MVC Clássico, separando de forma clara a interface de usuário da lógica de negócios e da representação real de banco de dados.
+- **Model:** Nossas entidades JPA (como `Produto`, `Pedido`, `Usuario`) e abstrações locais representam a base de dados.
+- **Controller:** As classes anotadas com `@RestController` que capturam as chamadas HTTP (POST, GET) de usuários e repassam para as regras de negócio nas camadas inferiores.
+- **View:** As páginas estáticas Thymeleaf e os frameworks Web, que desenham os dados repassados pelo Controller para o dispositivo do cliente.
 
-### 📍 Localização no Código (Pacotes e Classes)
-- **Pacote da Fachada:** `commerce.nobreza.loja.masculina.nobreza_loja.Service.facade`
-- **Pacote dos Subsistemas:** `commerce.nobreza.loja.masculina.nobreza_loja.Service.facade.subsistema`
+### 2. Arquitetura em Camadas (Layered Pattern)
+Mesmo utilizando MVC, o projeto expande a divisão interna para uma Arquitetura em Camadas rígida para evitar "Controllers Gordos". 
+- `Controller (Apresentação)` -> Comunica com `Service`
+- `Service (Regra de Negócios)` -> Realiza a lógica centralizada e orquestra chamadas.
+- `Repository (Acesso aos Dados)` -> Contratos Spring Data JPA (`interface ProductRepository extends JpaRepository`).
+- O fluxo dita que um Controller *nunca* deve acessar um Repository diretamente sem passar pelo Service.
 
-**Classes Envolvidas:**
-1. **`AntiFraudeService`:** Simula o sistema de validação de fraude baseado no risco/valor.
-2. **`GatewayOperadoraService`:** Simula a conexão remota com um banco ou adquirente capturando o saldo do cliente.
-3. **`PagamentoCartaoFacade` (A Fachada em si):** É o cérebro que esconde o sistema complexo. Recebe as instâncias e possui um único método direto: `finalizarPagamento(valor)`.
-4. **`CartaoPagamentoStrategy` (A Cliente):** Em vez de orquestrar a fraude ou o banco ela mesma, injeta a Fachada e terceiriza inteiramente as chamadas num fluxo blindado e unificado.
+---
 
-### 🛠 Como foi aplicado (Exemplo de Implementação)
-As lógicas de bloqueio por fraude e validação restrita com operadoras bancárias foram construídas internamente na classe `PagamentoCartaoFacade`.
+## 🏗️ Padrões Criacionais (Creational Patterns)
+Lidam com os mecanismos de criação e instanciação de objetos de forma independente do sistema.
 
-O cliente (`CartaoPagamentoStrategy`) apenas invoca confiantemente essa fina camada:
-```java
-@Component
-@RequiredArgsConstructor
-public class CartaoPagamentoStrategy implements PagamentoStrategy {
+### 1. Builder Pattern (Construtor)
+O padrão **Builder** provê uma forma flexível de extrair lógicas monstruosas de construção para objetos complexos, resolvendo o chamado *Anti-Pattern de Construtor Telescópico*.
+- **O Problema:** A entidade `Produto` deste sistema possui quase 15 campos (`nome`, `preco`, `quantidade`, `desconto`, `categoria`, coleções de `imagens` e `cores`). Exigir a injeção ordenada desses atributos num `.new Produto(nome, preco...)` causaria lentidão, quebra de compilação ou inserções na ordem trocada.
+- **Como foi Aplicado:** Através do framework *Lombok* utilizando a anotação `@Builder` na classe `Produto` (em `Entity/Produto.java`). 
+- **Benefícios:** A instanciação por parte dos `Services` pode omitir campos nulos de forma limpa, baseando-se no preenchimento nomeado seguro `Produto.builder().name("Camisa").price(50).build()`.
 
-    private final PagamentoCartaoFacade pagamentoCartaoFacade;
+---
 
-    // Chamada única e central
-    @Override
-    public void processarPagamento(BigDecimal valor) {
-        pagamentoCartaoFacade.finalizarPagamento(valor);
-    }
-}
-```
+## 🧩 Padrões Estruturais (Structural Patterns)
+Lidam com a forma como classes e objetos são compostos para formar estruturas e interfaces maiores.
 
-### ✨ Benefícios
-- **Interface Simplificada e Intuitiva:** Reduz drasticamente a curva de aprendizado. Novos programadores lidando com Cartão só veem 1 dependência do Facade, e não 30 serviços do banco instanciados.
-- **Baixo Acoplamento e Maior Isolamento:** Se a loja decidir amanhã trocar a operadora "Cielo" pela "Stone", a `CartaoPagamentoStrategy` nunca sofrerá *nenhuma* alteração. A adaptação técnica é encapsulada na Facade e no seu subsistema.
+### 2. Facade Pattern (Fachada)
+Fornece uma interface unificada e simplificada para um conjunto complexo de subsistemas periféricos.
+- **Localização:** `Service.facade.PagamentoCartaoFacade`
+- **Como foi Aplicado:** No checkout de cartões, um simples pagamento necessita validar regras antifraude complexas (`AntiFraudeService`) e consumir APIs bancárias pesadas (`GatewayOperadoraService`). O `PagamentoCartaoFacade` injeta estes sistemas pesados e expõe apenas um método `finalizarPagamento()`.
+- **Benefícios:** O cliente (`CartaoPagamentoStrategy`) é brutalmente simplificado e isolado em dependências, sem necessitar aprender como o Sistema Financeiro opera por trás das cortinas.
+
+### 3. Proxy Pattern (Procurador)
+Fornece um substituto ou espaço reservado (placeholder) para outro objeto gerenciar o acesso a ele, otimizando ou segurando custos.
+- **Localização:** `Service.proxy.ProductCatalogProxy` implementando `CatalogoServiceInterface`.
+- **Como foi Aplicado:** Aqui é aplicado na modalidade **Cache Proxy**. O serviço verdadeiro (`ProductService`) pode gerar uma sobrecarga massiva no Banco de Dados se milhares de usuários clicarem no catálogo principal. Então, injetamos pelo Spring Boot o `@Primary ProductCatalogProxy`, possobilitar checagem no `CacheManager`. Se e somente se o Cache der "Miss", ele autoriza o `ProductService` real a sofrer carga.
+- **Benefícios:** Alívio profundo de performance (IO e Network do SQL), escalando a aplicação significativamente mediante leitura repetida.
+
+---
+
+## ⚙️ Padrões Comportamentais (Behavioral Patterns)
+Lidam com a comunicação, responsabilidades pontuais e fluxos dinâmicos em tempo de execução entre objetos.
+
+### 4. Strategy Pattern (Estratégia)
+Permite definir uma família de algoritmos, encapsular cada um isoladamente e torná-los intercambiáveis sem afetar como os componentes maiores operam com ele.
+- **Localização:** Interface `PagamentoStrategy` e sua ramificação de implementações injetáveis.
+- **Como foi Aplicado:** Para o e-commerce, o cliente pode pagar na forma `CartaoPagamentoStrategy`, `PixPagamentoStrategy` ou em boleto. Em vez do serviço injetar pesados e poluentes `if (modo == PIX) {...}` no núcleo, criamos contratos. O Contexto do Spring recebe a interface em alta abstração e delega ao filho que foi sinalizado no request.
+- **Benefícios:** Respeito absoluto ao Princípio de Responsabilidade Única (SRP) e ao Princípio Aberto-Fechado (Open-Closed). Novas formas de pagamento no futuro não causarão quebras na classe Original `Pedido`.
+
+### 5. Observer Pattern (Observador)
+Define uma dependência um-para-muitos para que quando um sujeito (publisher) seja alterado, reações passivas aconteçam automaticamente.
+- **Localização:** `Service.observer` com suas implementações `LimpezaCarrinhoObserver` e `EmailConfirmacaoObserver`.
+- **Como foi Aplicado:** O serviço natural de e-commerce da aplicação acarreta eventos colaterais automáticos mediante a venda de uma roupa (limpar o carrinho, alertar ao cliente, disparar rotinas de nota fiscal...). 
+- **Benefícios:** O core do objeto Transacional (`PedidoService`) fica 100% livre. Ele apenas "grita em uma praça pública" usando o método abstrato que ele finalizou seu fluxo e todas as classes injetadas ouvintes (`PedidoObserver`) tomam conhecimento da situação acionando as consequências de forma independente.
