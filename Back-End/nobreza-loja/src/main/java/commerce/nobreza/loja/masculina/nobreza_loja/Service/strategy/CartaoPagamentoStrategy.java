@@ -14,7 +14,8 @@ public class CartaoPagamentoStrategy implements PagamentoStrategy {
 
     @Override
     public void processarPagamento(BigDecimal valor) {
-        // Chamada única e simples para o "cliente", abstraindo a cadeia antifraude e de gateway.
-        pagamentoCartaoFacade.finalizarPagamento(valor);
+        // Chamada única e simples para o "cliente", abstraindo toda a complexidade
+        // de autorização bancária e captura pela processadora por trás do Facade.
+        pagamentoCartaoFacade.processarPagamentoCartao("4111-1111-1111-1111", valor);
     }
 }
