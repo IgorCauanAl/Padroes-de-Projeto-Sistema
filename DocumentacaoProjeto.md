@@ -38,10 +38,11 @@ O padrão **Builder** provê uma forma flexível de extrair lógicas monstruosas
 Lidam com a forma como classes e objetos são compostos para formar estruturas e interfaces maiores.
 
 ### 2. Facade Pattern (Fachada)
-Fornece uma interface unificada e simplificada para um conjunto complexo de subsistemas periféricos.
+Fornece uma interface unificada e simplificada para um conjunto complexo de subsistemas bancários externos.
 - **Localização:** `Service.facade.PagamentoCartaoFacade`
-- **Como foi Aplicado:** No checkout de cartões, um simples pagamento necessita validar regras antifraude complexas (`AntiFraudeService`) e consumir APIs bancárias pesadas (`GatewayOperadoraService`). O `PagamentoCartaoFacade` injeta estes sistemas pesados e expõe apenas um método `finalizarPagamento()`.
-- **Benefícios:** O cliente (`CartaoPagamentoStrategy`) é brutalmente simplificado e isolado em dependências, sem necessitar aprender como o Sistema Financeiro opera por trás das cortinas.
+- **Subsistemas (interfaces GoF):** `AutorizadorBancario` (banco emissor do cartão) e `ProcessadoraPagamento` (processadora, ex: Cielo, Stone), com implementações simuladas (`*Impl`).
+- **Como foi Aplicado:** No checkout com cartão de crédito, o pagamento exige comunicação com múltiplos sistemas bancários externos: primeiro, solicitar autorização ao **banco emissor** do cartão e, em seguida, realizar a **captura do valor** junto à processadora. O `PagamentoCartaoFacade` orquestra essas etapas internamente e expõe apenas um método `processarPagamentoCartao()`. Os subsistemas são referenciados por **interfaces** (seguindo o princípio GoF de programar para interfaces), permitindo trocar as simulações por integrações reais sem alterar o Facade.
+- **Benefícios:** O cliente (`CartaoPagamentoStrategy`) é brutalmente simplificado e isolado em dependências, sem necessitar conhecer os detalhes de autorização bancária e captura de pagamento que operam por trás das cortinas.
 
 ### 3. Proxy Pattern (Procurador)
 Fornece um substituto ou espaço reservado (placeholder) para outro objeto gerenciar o acesso a ele, otimizando ou segurando custos.

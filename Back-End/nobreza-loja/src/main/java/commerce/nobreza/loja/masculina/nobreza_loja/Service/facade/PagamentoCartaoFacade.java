@@ -13,7 +13,7 @@ import java.math.BigDecimal;
  * bancários externos necessários para processar um pagamento com cartão de crédito.
  *
  * O cliente (CartaoPagamentoStrategy) não precisa conhecer os detalhes de
- * autorização bancária nem de captura pela adquirente — apenas chama o Facade.
+ * autorização bancária nem de captura pela processadora — apenas chama o Facade.
  *
  * Os subsistemas são referenciados por interfaces (AutorizadorBancario, ProcessadoraPagamento),
  * seguindo o princípio de programar para interfaces do GoF.
@@ -29,7 +29,7 @@ public class PagamentoCartaoFacade {
      * Método único exposto ao cliente.
      * Internamente, orquestra a comunicação com os sistemas bancários externos:
      * 1. Solicita autorização ao banco emissor do cartão.
-     * 2. Solicita a captura do valor à adquirente/processadora.
+     * 2. Solicita a captura do valor à processadora.
      */
     public void processarPagamentoCartao(String numeroCartao, BigDecimal valor) {
         System.out.println("\n--- [Facade] Iniciando pagamento via Cartão de Crédito ---");
@@ -40,10 +40,10 @@ public class PagamentoCartaoFacade {
             throw new RuntimeException("Pagamento recusado: o banco emissor não autorizou a transação.");
         }
 
-        // Etapa 2: Captura do valor pela adquirente
+        // Etapa 2: Captura do valor pela processadora
         boolean capturado = processadoraPagamento.capturar(valor);
         if (!capturado) {
-            throw new RuntimeException("Pagamento recusado: a adquirente não conseguiu capturar o valor.");
+            throw new RuntimeException("Pagamento recusado: a processadora não conseguiu capturar o valor.");
         }
 
         System.out.println("--- [Facade] Pagamento via Cartão de Crédito concluído com sucesso! ---\n");
