@@ -31,5 +31,8 @@ replay_pid*
 Back-End/nobreza-loja/target/
 Back-End/nobreza-loja/logs/
 
+# Environment secrets 
+Back-End/nobreza-loja/.env
+
 # Runtime uploads
 Back-End/nobreza-loja/uploads/

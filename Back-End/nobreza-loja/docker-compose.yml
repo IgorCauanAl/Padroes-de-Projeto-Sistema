@@ -39,7 +39,6 @@ services:
     ports:
       - "8081:8081"
     environment:
-      SPRING_PROFILES_ACTIVE: docker
       DB_URL: jdbc:sqlserver://sqlserver:1433;databaseName=${DB_NAME:-nobreza_loja};encrypt=true;trustServerCertificate=true
       DB_USER: sa
       DB_PASSWORD: ${DB_PASSWORD:-YourStrong!Passw0rd}

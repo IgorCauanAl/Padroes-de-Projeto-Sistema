@@ -3,5 +3,7 @@ target
 .gitignore
 .idea
 .vscode
+.env
+.env.example
 logs
 *.log
